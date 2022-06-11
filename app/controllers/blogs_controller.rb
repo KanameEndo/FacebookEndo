@@ -1,70 +1,57 @@
 class BlogsController < ApplicationController
-  before_action :set_blog, only: %i[ show edit update destroy ]
-
-  # GET /blogs or /blogs.json
+  before_action :set_blog, only: [:show, :edit, :update, :destroy]
   def index
-    @blogs = Blog.all
+      @blogs = current_user.blogs
   end
 
-  # GET /blogs/1 or /blogs/1.json
-  def show
-  end
-
-  # GET /blogs/new
   def new
-    @blog = Blog.new
+      @blog = Blog.new
   end
 
-  # GET /blogs/1/edit
+  def create
+    @blog = current_user.blogs.build(blog_params)
+    if params[:back]
+      render :new
+    else
+      if @blog.save
+        redirect_to blogs_path, notice: "ブログを作成しました！"
+      else
+        render :new
+      end
+    end
+  end
+
+  def confirm
+    @blog = Blog.find(params[:id])
+    @blog = current_user.blogs.build(blog_params)
+    render :new if @blog.invalid?
+  end
+
+  def show
+    @favorite = current_user.favorites.find_by(blog_id: @blog.id)
+  end
+
   def edit
   end
 
-  # POST /blogs or /blogs.json
-  def create
-    @blog = Blog.new(blog_params)
-
-    respond_to do |format|
-      if @blog.save
-        format.html { redirect_to blog_url(@blog), notice: "Blog was successfully created." }
-        format.json { render :show, status: :created, location: @blog }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @blog.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /blogs/1 or /blogs/1.json
   def update
-    respond_to do |format|
-      if @blog.update(blog_params)
-        format.html { redirect_to blog_url(@blog), notice: "Blog was successfully updated." }
-        format.json { render :show, status: :ok, location: @blog }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @blog.errors, status: :unprocessable_entity }
-      end
+    if @blog.update(blog_params)
+      redirect_to blogs_path, notice: "編集しました"
+    else
+      render :edit
     end
   end
 
-  # DELETE /blogs/1 or /blogs/1.json
   def destroy
     @blog.destroy
-
-    respond_to do |format|
-      format.html { redirect_to blogs_url, notice: "Blog was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to blogs_path, notice: "削除しました"
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_blog
-      @blog = Blog.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def blog_params
-      params.require(:blog).permit(:title, :content, :image)
-    end
+  def blog_params
+    params.require(:blog).permit(:title, :content, :user_id)
+  end
+  def set_blog
+    @blog = Blog.find(params[:id])
+  end
 end
