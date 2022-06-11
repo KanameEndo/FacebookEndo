@@ -22,7 +22,6 @@ class BlogsController < ApplicationController
   end
 
   def confirm
-    @blog = Blog.find(params[:id])
     @blog = current_user.blogs.build(blog_params)
     render :new if @blog.invalid?
   end
