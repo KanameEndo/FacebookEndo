@@ -1,18 +1,16 @@
-  <h1><%= current_user.name %>さんの最近の気持ちと写真</h1>
+  <h1><%= current_user.name %>最近の近況</h1>
 <table>
   <tr>
     <th>タイトル</th>
     <th>内容</th>
-    <th>名前</th>
   </tr>
   <% @blogs.each do |blog| %>
   <tr>
     <td><%= blog.title %></td>
     <td><%= blog.content %></td>
-    <td><%= blog.user.name %></td>
-    <td><%= link_to "詳細画面へ", blog_path(blog.id) %></td>
-    <td><%= link_to "編集画面へ", edit_blog_path(blog.id), data:{confirm:'本当に編集してよいですか？'}%></td>
-    <td><%= link_to "削除する", blog_path(blog.id),method: :delete, data:{confirm:'本当に削除してよいですか？'}%></td>
+    <td><%= link_to "確認", blog_path(blog.id) %></td>
+    <td><%= link_to "編集", edit_blog_path(blog.id), data:{confirm:'本当に編集してよいですか？'}%></td>
+    <td><%= link_to "削除", blog_path(blog.id),method: :delete, data:{confirm:'本当に削除してよいですか？'}%></td>
   </tr>
   <% end %>
 </table>
