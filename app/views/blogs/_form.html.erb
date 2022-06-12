@@ -5,9 +5,9 @@
     <ul>
     <% @blog.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
-  <% end %>
-  </ul>
-  </div>
+    <% end %>
+    </ul>
+    </div>
 <% end%>
   <div class="user_name">
     <%= form.label :title%>
@@ -23,4 +23,4 @@
   </div>
     <%= form.submit "送信"%>
 <% end %>
-<%= link_to "ブログ一覧画面にもどる", blogs_path %>
+<%= link_to "一覧画面にもどる", blogs_path %>

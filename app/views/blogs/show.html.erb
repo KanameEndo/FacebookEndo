@@ -5,8 +5,12 @@
         <%= link_to 'お気に入りする', favorites_path(blog_id: @blog.id), method: :post, class: 'btn btn-primary' %>
     <% end %>
 <% end %>
-<h1>ブログ詳細画面</h1>
-<p>名前:<%= @blog.user.name %></p>
-<p>タイトル:<%= @blog.title %></p>
-<p>内容<%= @blog.content %></p>
+<h1>詳細画面</h1>
+    <p>名前:<%= @blog.user.name %></p>
+    <p>タイトル:<%= @blog.title %></p>
+    <p>内容<%= @blog.content %></p>
+    <p>
+        <strong>写真</strong>
+        <%= image_tag @blog.image.url %>
+    </p>
 <%= link_to 'ブログ一覧へ', blogs_path%>
