@@ -43,6 +43,8 @@ group :development do
   gem 'bcrypt'
   gem 'carrierwave'
   gem 'mini_magick'
+  gem 'bootstrap', '~> 4.4.1'
+  gem 'jquery-rails'
 end
 
 group :test do
