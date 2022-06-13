@@ -10,7 +10,8 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
-
+gem 'bcrypt'
+gem 'carrierwave'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
@@ -22,8 +23,6 @@ group :development do
   gem 'listen', '~> 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'bcrypt'
-  gem 'carrierwave'
   gem 'mini_magick'
   gem 'bootstrap', '~> 4.4.1'
   gem 'jquery-rails'
